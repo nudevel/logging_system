@@ -57,11 +57,11 @@ int main()
         if( ch == 'd' ){
           iHlsDisplay(iFd, NULL);
         } else if( ch == 's' ){
-            i = 0;
-            iHlsControl(iFd, HLS_CTL_STDOUT, (void*)&i);
+            dHlsRequestStdout_t tReq = { 0 };
+            iHlsControl(iFd, HlsRequestStdout, (void*)&tReq);
         } else if( ch == 'S' ){
-            i = 1;
-            iHlsControl(iFd, HLS_CTL_STDOUT, (void*)&i);
+            dHlsRequestStdout_t tReq = { 1 };
+            iHlsControl(iFd, HlsRequestStdout, (void*)&tReq);
         }
     }
 

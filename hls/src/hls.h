@@ -33,13 +33,26 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   HLS (Hybrid Logging System) to output message to the stdout and a ring buffer.
   ---------------------------------------------------------------------------*/
 
-#define HLS_CTL_STDOUT (1)
-#define HLS_CTL_MEMOUT (2)
+typedef enum
+{
+    HlsRequestStdout, /* dHlsRequestStdout_t */
+    HlsRequestMemout, /* dHlsRequestMemout_t */
+} dHlsRequest_e;
+
+typedef struct
+{
+    int iOn;
+} dHlsRequestStdout_t;
+
+typedef struct
+{
+    int iOn;
+} dHlsRequestMemout_t;
 
 int iHlsOpen(int iRingBufferLength);
 void vHlsClose(int iFd);
 int iHlsPrintf(int iFd, const char *pcFormat, ... );
-int iHlsControl(int iFd, int iRequest, void* vpArg);
+int iHlsControl(int iFd, dHlsRequest_e eRequest, void* vpArg);
 int iHlsDisplay(int iFd, const char* pcFileName);
 
 #endif

@@ -117,7 +117,7 @@ int iHlsPrintf(int iFd, const char *pcFormat, ... )
     return iLen;
 }
 
-int iHlsControl(int iFd, int iRequest, void* vpArg)
+int iHlsControl(int iFd, dHlsRequest_e eRequest, void* vpArg)
 {
     int iRet = 0;
     dHls_t* ptFd = (dHls_t*)iFd;
@@ -128,12 +128,12 @@ int iHlsControl(int iFd, int iRequest, void* vpArg)
     if( pthread_mutex_lock( &ptFd->tMutex ) != 0 )
       return -1;
     
-    switch(iRequest){
-      case HLS_CTL_STDOUT:
-        ptFd->iStdout = *(int*)vpArg;
+    switch(eRequest){
+      case HlsRequestStdout:
+        ptFd->iStdout = ((dHlsRequestStdout_t*)vpArg)->iOn;
         break;
-      case HLS_CTL_MEMOUT:
-        ptFd->iMemout = *(int*)vpArg;
+      case HlsRequestMemout:
+        ptFd->iMemout = ((dHlsRequestMemout_t*)vpArg)->iOn;
         break;
       default:
         iRet = -1;
